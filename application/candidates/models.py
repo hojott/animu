@@ -6,7 +6,9 @@ class Candidate(db.Model):
     
     name = db.Column(db.String(144), nullable=False)
     selected = db.Column(db.Boolean, nullable = False)
+    url = db.Column(db.String(144), nullable=False)
 
     def __init__(self, name):
         self.name = name
         self.selected = False
+        self.url = ""
