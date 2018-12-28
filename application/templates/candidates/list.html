@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Candidate</th>
+      <th>Selected</th>
+      <th></th>
+    </tr>
+    {% for candidate in candidates %}
+    <tr>
+      <td>{{ candidate.name }}</td>
+      <td>{{ candidate.selected }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('candidates_set_selected', candidate_id=candidate.id) }}">
+          <input type="submit" value="Set selected"/>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

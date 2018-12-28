@@ -6,6 +6,10 @@
   </head>
 
   <body>
+    <ul>
+      <li><a href="{{ url_for('candidates_index') }}">List candidates</a></li>
+      <li><a href="{{ url_for('candidates_form') }}">Add a candidate</a></li>
+    </ul>
     {% block body %}
       <p>
         Content.
