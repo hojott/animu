@@ -7,6 +7,7 @@ class Candidate(db.Model):
     name = db.Column(db.String(144), nullable=False)
     selected = db.Column(db.Boolean, nullable = False)
     url = db.Column(db.String(144), nullable=False)
+    nominator_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
 
     def __init__(self, name):
         self.name = name
