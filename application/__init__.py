@@ -18,6 +18,9 @@ from application import views
 from application.candidates import models
 from application.candidates import views
 
+from application.votes import models
+from application.votes.models import Approval
+
 from application.auth import models
 from application.auth import views
 

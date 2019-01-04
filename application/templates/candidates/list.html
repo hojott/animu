@@ -5,7 +5,10 @@
     <tr>
       <th>Candidate</th>
       <th>Link</th>
+      <th>Nominator</th>
       <th>Selected</th>
+      <th>Approvals</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -13,16 +16,29 @@
     <tr>
       <td>{{ candidate.name }}</td>
       <td>{{ candidate.url }}</td>
+      <td>{{ user.query.get(candidate.nominator_id).name }}</td>
       <td>{{ candidate.selected }}</td>
+      <td>{{ approval.query.filter_by(candidate_id=candidate.id).count() }}</td>
       <td>
         <form method="POST" action="{{ url_for('candidates_set_selected', candidate_id=candidate.id) }}">
           <input type="submit" value="Set selected"/>
         </form>
       </td>
       <td>
-          edit
-        </td>
+        <form method="POST" action="{{ url_for('candidates_set_approved', candidate_id=candidate.id) }}">
+          <input type="submit" value="(un)Approve"/>
+        </form>
+      </td>
+      <td>
+        <form method="GET" action="{{ url_for('candidates_edit', candidate_id=candidate.id) }}">
+          <input type="submit" value="Edit"/>
+        </form>
+      </td>
     </tr>
     {% endfor %}
   </table>
+
+  <p>
+    Winning: {{ winning }}
+  </p>
 {% endblock %}

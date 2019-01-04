@@ -1,9 +1,17 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, BooleanField
 
 class CandidateForm(FlaskForm):
     name = StringField("Candidate name")
-    url = StringField("Candidate url, e.g. IMDB page")
+    url = StringField("Candidate URL, e.g. IMDB page")
  
+    class Meta:
+        csrf = False
+
+class EditForm(FlaskForm):
+    name = StringField("Candidate name")
+    url = StringField("Candidate URL")
+    selected = BooleanField("Selected")
+    
     class Meta:
         csrf = False
