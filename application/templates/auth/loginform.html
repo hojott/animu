@@ -1,29 +1,29 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('candidates_create') }}">
+{{ error }}
+<form method="POST" action="{{ url_for('auth_login') }}">
   <table>
     <tr>
       <td>
-        {{ form.name.label }}
+	{{ form.username.label }}
       </td>
       <td>
-        {{ form.name }}
+	{{ form.username }}
       </td>
     </tr>
     <tr>
       <td>
-        {{ form.url.label }}
+	{{ form.password.label }}
       </td>
       <td>
-        {{ form.url }}
+	{{ form.password }}
       </td>
     </tr>
     <tr>
       <td colspan="2">
-        <input type="submit" value="Add a new candidate" />
+	<input type="submit" value="Login"/>
       </td>
     </tr>
-
 </form>
 {% endblock %}

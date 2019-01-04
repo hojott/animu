@@ -1,6 +1,8 @@
-from application import app, db
 from flask import redirect, render_template, request, url_for
+
+from application import app, db
 from application.candidates.models import Candidate
+from application.candidates.forms import CandidateForm
 
 @app.route("/candidates/", methods=["GET"])
 @app.route("/candidates", methods=["GET"])
@@ -9,7 +11,7 @@ def candidates_index():
 
 @app.route("/candidates/new/")
 def candidates_form():
-    return render_template("candidates/new.html")
+    return render_template("candidates/new.html", form = CandidateForm())
 
 @app.route("/candidates/<candidate_id>/", methods=["POST"])
 def candidates_set_selected(candidate_id):
@@ -22,7 +24,7 @@ def candidates_set_selected(candidate_id):
 @app.route("/candidates/", methods=["POST"])
 def candidates_create():
     candidate = Candidate(request.form.get("name"))
-
+    candidate.url = request.form.get("url")
     db.session().add(candidate)
     db.session().commit()
 
