@@ -8,6 +8,7 @@ from application.candidates.forms import CandidateForm
 from application.candidates.forms import EditForm
 
 from application.votes.models import Approval
+from application.votes.models import Veto
 
 from application.auth.models import User
 
@@ -15,8 +16,13 @@ from application.auth.models import User
 @app.route("/candidates", methods=["GET"])
 def candidates_index():
     candidates = Candidate.query.all()
-    candidates = sorted(candidates, reverse=True, key=lambda candidate: Approval.query.filter_by(candidate_id=candidate.id).count())
-    return render_template("candidates/list.html", winning=Candidate.find_winning_candidates(), approval=Approval, user=User, candidates=candidates)
+    for c in candidates:
+        setattr(c, "approval", Approval.query.filter_by(candidate_id=c.id).count())
+        setattr(c, "veto", Veto.query.filter_by(candidate_id=c.id).count())
+
+    candidates = sorted(candidates, reverse=True, key=lambda c: c.approval)
+    candidates = sorted(candidates, key=lambda c: c.veto)
+    return render_template("candidates/list.html", winning=Candidate.find_winning_candidates(), user=User, candidates=candidates)
 
 @app.route("/candidates/new/")
 @login_required
@@ -72,6 +78,23 @@ def candidates_set_approved(candidate_id):
         db.session().add(new_approval)
     else:
         db.session().delete(approval)
+
+    db.session().commit()
+
+    return redirect(url_for("candidates_index"))
+
+@app.route("/candidates/veto/<candidate_id>/", methods=["POST"])
+@login_required
+def candidates_set_veto(candidate_id):
+    candidate = Candidate.query.get(candidate_id)
+
+    veto = Veto.query.filter_by(candidate_id=candidate_id, voter_id=current_user.id).first()
+
+    if (veto == None):
+        new_veto = Veto(current_user.id, candidate_id)
+        db.session().add(new_veto)
+    else:
+        db.session().delete(veto)
 
     db.session().commit()
 

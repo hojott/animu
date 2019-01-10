@@ -8,6 +8,8 @@
       <th>Nominator</th>
       <th>Selected</th>
       <th>Approvals</th>
+      <th>Veto</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,7 +20,8 @@
       <td>{{ candidate.url }}</td>
       <td>{{ user.query.get(candidate.nominator_id).name }}</td>
       <td>{{ candidate.selected }}</td>
-      <td>{{ approval.query.filter_by(candidate_id=candidate.id).count() }}</td>
+      <td>{{ candidate.approval }}</td>
+      <td>{{ candidate.veto }}</td>
       <td>
         <form method="POST" action="{{ url_for('candidates_set_selected', candidate_id=candidate.id) }}">
           <input type="submit" value="Set selected"/>
@@ -27,6 +30,11 @@
       <td>
         <form method="POST" action="{{ url_for('candidates_set_approved', candidate_id=candidate.id) }}">
           <input type="submit" value="(un)Approve"/>
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="{{ url_for('candidates_set_veto', candidate_id=candidate.id) }}">
+          <input type="submit" value="(un)Veto"/>
         </form>
       </td>
       <td>

@@ -1,6 +1,6 @@
 from application import db
 from application.models import Base
-from application.votes.models import Approval
+from application.votes.models import Approval, Veto
 
 class Candidate(Base):
     name = db.Column(db.String(144), nullable=False)
@@ -20,6 +20,8 @@ class Candidate(Base):
         winners = []
         max_score = -1
         for c in candidates:
+            if Veto.query.filter_by(candidate_id=c.id).count() != 0:
+                continue
             score = Approval.query.filter_by(candidate_id=c.id).count()
             if score > max_score:
                 winners.clear()
