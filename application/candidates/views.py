@@ -45,13 +45,13 @@ def candidates_edit(candidate_id):
 def candidates_set_approved(candidate_id):
     candidate = Candidate.query.get(candidate_id)
 
-    approvals = Approval.query.filter_by(candidate_id=candidate_id, voter_id=current_user.id).first()
+    approval = Approval.query.filter_by(candidate_id=candidate_id, voter_id=current_user.id).first()
 
-    if (approvals == None):
-        approval = Approval(current_user.id, candidate_id)
-        db.session().add(approval)
+    if (approval == None):
+        new_approval = Approval(current_user.id, candidate_id)
+        db.session().add(new_approval)
     else:
-        Approval.query.filter_by(candidate_id=candidate_id).delete()
+        db.session().delete(approval)
 
     db.session().commit()
 
