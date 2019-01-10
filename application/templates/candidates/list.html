@@ -30,9 +30,7 @@
         </form>
       </td>
       <td>
-        <form method="GET" action="{{ url_for('candidates_edit', candidate_id=candidate.id) }}">
-          <input type="submit" value="Edit"/>
-        </form>
+        <a href="{{ url_for('candidates_edit', candidate_id=candidate.id)}}">Edit</a>
       </td>
     </tr>
     {% endfor %}

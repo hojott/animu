@@ -18,14 +18,14 @@ class Candidate(Base):
     def find_winning_candidates():
         candidates = Candidate.query.all()
         winners = []
-        max = -1
+        max_score = -1
         for c in candidates:
             score = Approval.query.filter_by(candidate_id=c.id).count()
-            if score > max:
+            if score > max_score:
                 winners.clear()
                 winners.append(c.name)
-                max = score
-            elif score == max:
+                max_score = score
+            elif score == max_score:
                 winners.append(c.name)
         
         return winners

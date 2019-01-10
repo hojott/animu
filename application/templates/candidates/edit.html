@@ -2,7 +2,7 @@
 
 {% block body %}
 {{ error }}
-<form method="POST" action="{{ url_for('candidates_edit') }}">
+<form method="POST" action="{{ url_for('candidates_edit', candidate_id=candidate.id) }}">
   <table>
     <tr>
       <td>
@@ -34,4 +34,8 @@
       </td>
     </tr>
 </form>
+
+<form method="POST" action="{{ url_for('candidates_delete', candidate_id=candidate.id) }}">
+    <input type="submit" value="Delete"/>
+  </form>
 {% endblock %}

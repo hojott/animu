@@ -8,15 +8,14 @@ from application.auth.forms import LoginForm, RegisterForm
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
-        return render_template("auth/loginform.html", form = LoginForm())
+        return render_template("auth/loginform.html", form=LoginForm())
 
     form = LoginForm(request.form)
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
-        return render_template("auth/loginform.html", form = form,
-                                error = "No such username or password")
-
+        return render_template("auth/loginform.html", form=form,
+                                error="No such username or password")
 
     login_user(user)
     return redirect(url_for("index"))
@@ -29,20 +28,20 @@ def auth_logout():
 @app.route("/auth/register", methods = ["GET", "POST"])
 def auth_register():
     if request.method == "GET":
-        return render_template("auth/register.html", form = RegisterForm())
+        return render_template("auth/register.html", form=RegisterForm())
 
     form = RegisterForm(request.form)
 
     if (User.query.filter_by(username=form.username.data).first() != None):
-        return render_template("auth/register.html", form = form, error = "The username you entered is already taken")
+        return render_template("auth/register.html", form=form, error="The username you entered is already taken")
 
     if (form.password.data != form.pw_check.data):
-        return render_template("auth/register.html", form = form, error = "Passwords didn't match")
+        return render_template("auth/register.html", form=form, error="Passwords didn't match")
 
     new_user = User(form.name.data, form.username.data, form.password.data)
 
     db.session().add(new_user)
     db.session().commit()
 
-    login_user(user)
+    login_user(new_user)
     return redirect(url_for("index"))

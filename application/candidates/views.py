@@ -14,12 +14,14 @@ from application.auth.models import User
 @app.route("/candidates/", methods=["GET"])
 @app.route("/candidates", methods=["GET"])
 def candidates_index():
-    return render_template("candidates/list.html", winning=Candidate.find_winning_candidates(), approval=Approval, user=User, candidates = Candidate.query.all())
+    candidates = Candidate.query.all()
+    candidates = sorted(candidates, reverse=True, key=lambda candidate: Approval.query.filter_by(candidate_id=candidate.id).count())
+    return render_template("candidates/list.html", winning=Candidate.find_winning_candidates(), approval=Approval, user=User, candidates=candidates)
 
 @app.route("/candidates/new/")
 @login_required
 def candidates_form():
-    return render_template("candidates/new.html", form = CandidateForm())
+    return render_template("candidates/new.html", form=CandidateForm())
 
 @app.route("/candidates/selected/<candidate_id>/", methods=["POST"])
 @login_required
@@ -33,12 +35,30 @@ def candidates_set_selected(candidate_id):
 @app.route("/candidates/edit/<candidate_id>/", methods=["POST", "GET"])
 @login_required
 def candidates_edit(candidate_id):
-    if request.method == "GET":
-        return render_template("candidates/edit.html", form = EditForm())
-    
     candidate = Candidate.query.get(candidate_id)
+    
+    if request.method == "GET":
+        return render_template("candidates/edit.html", form=EditForm(obj=candidate), candidate=candidate)
 
     form = EditForm(request.form)
+
+    candidate.name = form.name.data
+    candidate.selected = form.selected.data
+    candidate.url = form.url.data
+
+    db.session.commit()
+
+    return redirect(url_for("candidates_index"))
+
+@app.route("/candidates/delete/<candidate_id>/", methods=["POST"])
+@login_required
+def candidates_delete(candidate_id):
+    candidate = Candidate.query.get(candidate_id)
+    db.session().delete(candidate)
+    Approval.query.filter_by(voter_id=candidate_id).delete()
+    db.session().commit()
+
+    return redirect(url_for("candidates_index"))
 
 @app.route("/candidates/approved/<candidate_id>/", methods=["POST"])
 @login_required
@@ -63,7 +83,7 @@ def candidates_create():
     form = CandidateForm(request.form)
 
     if not form.validate():
-        return render_template("tasks/new.html", form = form)
+        return render_template("tasks/new.html", form=form)
 
     candidate = Candidate(form.name.data)
     candidate.url = form.url.data
