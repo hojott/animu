@@ -9,7 +9,42 @@
 </head>
 
 <body>
-  {% if current_user.is_authenticated %}
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a class="navbar-brand" href="#">HEPPA</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('candidates_index') }} ">List candidates</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('candidates_form') }} ">Add a candidate</a>
+        </li>
+      </ul>
+      <div class="form-inline mt-2 mt-md-0">
+        {% if current_user.is_authenticated %}
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth_logout') }} ">Logout</a>
+          </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth_login') }} ">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth_register') }} ">Register</a>
+          </li>
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <!-- {% if current_user.is_authenticated %}
   <p>
     Logged in as {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Log out</a>
   </p>
@@ -23,8 +58,9 @@
   </ul>
 
   <p>
-      This application implements <a href="https://en.wikipedia.org/wiki/Approval_voting">approval voting</a> with unrestricted veto-rights. Please use your real name to prevent abuse.
-  </p>
+    This application implements <a href="https://en.wikipedia.org/wiki/Approval_voting">approval voting</a> with
+    unrestricted veto-rights. Please use your real name to prevent abuse.
+  </p> -->
 
   {% block body %}
   <p>
