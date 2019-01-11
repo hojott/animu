@@ -20,7 +20,6 @@
     {% else %}
     <td><a href="{{ candidate.url }}">{{ candidate.name }}</a></td>
     {% endif %}
-    <td><a href="{{ candidate.url }}">{{ candidate.name }}</a></td>
     <td>{{ user.query.get(candidate.nominator_id).name }}</td>
     <td>{{ candidate.selected }}</td>
     <td>{{ candidate.approval }}</td>
