@@ -2,12 +2,20 @@ from application import db
 from application.models import Base
 from application.votes.models import Approval, Veto
 
+tags = db.Table('tags',
+    db.Column('tag_name', db.Integer, db.ForeignKey('tag.name'), primary_key=True),
+    db.Column('candidate_id', db.Integer, db.ForeignKey('candidate.id'), primary_key=True)
+)
+
 class Candidate(Base):
     name = db.Column(db.String(144), nullable=False)
     selected = db.Column(db.Boolean, nullable = False)
     url = db.Column(db.String(144), nullable=False)
     nominator_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
-    votes = db.relationship("Approval", backref='approval', lazy=True)
+    approvals = db.relationship("Approval", backref='approval', lazy=True)
+    vetoers = db.relationship("Veto", backref='veto', lazy=True)
+    tags = db.relationship('Tag', secondary=tags, lazy='subquery',
+        backref=db.backref('pages', lazy=True))
 
     def __init__(self, name):
         self.name = name
@@ -31,3 +39,6 @@ class Candidate(Base):
                 winners.append(c.name)
         
         return winners
+
+class Tag(db.Model):
+    name = db.Column(db.String(50), primary_key=True)

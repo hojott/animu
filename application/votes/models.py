@@ -2,7 +2,6 @@ from application import db
 from application.models import Base
 
 class Approval(Base):
-
     voter_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     candidate_id = db.Column(db.Integer, db.ForeignKey('candidate.id'), nullable=False)
 

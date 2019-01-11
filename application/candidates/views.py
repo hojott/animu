@@ -19,6 +19,10 @@ def candidates_index():
     for c in candidates:
         setattr(c, "approval", Approval.query.filter_by(candidate_id=c.id).count())
         setattr(c, "veto", Veto.query.filter_by(candidate_id=c.id).count())
+        displayed_tags = []
+        for tag in c.tags:
+            displayed_tags.append(tag.name)
+        setattr(c, "displayed_tags", displayed_tags)
 
     candidates = sorted(candidates, reverse=True, key=lambda c: c.approval)
     candidates = sorted(candidates, key=lambda c: c.veto)
@@ -60,8 +64,9 @@ def candidates_edit(candidate_id):
 @login_required
 def candidates_delete(candidate_id):
     candidate = Candidate.query.get(candidate_id)
-    db.session().delete(candidate)
     Approval.query.filter_by(voter_id=candidate_id).delete()
+    Veto.query.filter_by(voter_id=candidate_id).delete()
+    db.session().delete(candidate)
     db.session().commit()
 
     return redirect(url_for("candidates_index"))

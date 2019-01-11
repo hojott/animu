@@ -10,6 +10,7 @@
   <tr>
     <th>Candidate</th>
     <th>Nominator</th>
+    <th>Tags</th>
     <th>Approvals</th>
     <th>Veto</th>
     <th></th>
@@ -18,12 +19,15 @@
   </tr>
   {% for candidate in candidates %}
   <tr>
+    <td>
     {% if candidate.url == "" %}
-    <td>{{ candidate.name }}</td>
+    {{ candidate.name }}
     {% else %}
-    <td><a href="{{ candidate.url }}">{{ candidate.name }}</a></td>
+    <a href="{{ candidate.url }}">{{ candidate.name }}</a>
     {% endif %}
+    </td>
     <td>{{ user.query.get(candidate.nominator_id).name }}</td>
+    <td>{{ candidate.displayed_tags }}</td>
     <td>{{ candidate.approval }}</td>
     <td>{{ candidate.veto }}</td>
     <td>
