@@ -1,48 +1,53 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-    <tr>
-      <th>Candidate</th>
-      <th>Nominator</th>
-      <th>Selected</th>
-      <th>Approvals</th>
-      <th>Veto</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    {% for candidate in candidates %}
-    <tr>
-      <td><a href="{{ candidate.url }}">{{ candidate.name }}</a></td>
-      <td>{{ user.query.get(candidate.nominator_id).name }}</td>
-      <td>{{ candidate.selected }}</td>
-      <td>{{ candidate.approval }}</td>
-      <td>{{ candidate.veto }}</td>
-      <td>
-        <form method="POST" action="{{ url_for('candidates_set_selected', candidate_id=candidate.id) }}">
-          <input type="submit" value="Set selected"/>
-        </form>
-      </td>
-      <td>
-        <form method="POST" action="{{ url_for('candidates_set_approved', candidate_id=candidate.id) }}">
-          <input type="submit" value="(un)Approve"/>
-        </form>
-      </td>
-      <td>
-        <form method="POST" action="{{ url_for('candidates_set_veto', candidate_id=candidate.id) }}">
-          <input type="submit" value="(un)Veto"/>
-        </form>
-      </td>
-      <td>
-        <a href="{{ url_for('candidates_edit', candidate_id=candidate.id)}}">Edit</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
+<table>
+  <tr>
+    <th>Candidate</th>
+    <th>Nominator</th>
+    <th>Selected</th>
+    <th>Approvals</th>
+    <th>Veto</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  {% for candidate in candidates %}
+  <tr>
+    {% if candidate.url == "" %}
+    <td>{{ candidate.name }}</td>
+    {% else %}
+    <td><a href="{{ candidate.url }}">{{ candidate.name }}</a></td>
+    {% endif %}
+    <td><a href="{{ candidate.url }}">{{ candidate.name }}</a></td>
+    <td>{{ user.query.get(candidate.nominator_id).name }}</td>
+    <td>{{ candidate.selected }}</td>
+    <td>{{ candidate.approval }}</td>
+    <td>{{ candidate.veto }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('candidates_set_selected', candidate_id=candidate.id) }}">
+        <input type="submit" value="Set selected" />
+      </form>
+    </td>
+    <td>
+      <form method="POST" action="{{ url_for('candidates_set_approved', candidate_id=candidate.id) }}">
+        <input type="submit" value="(un)Approve" />
+      </form>
+    </td>
+    <td>
+      <form method="POST" action="{{ url_for('candidates_set_veto', candidate_id=candidate.id) }}">
+        <input type="submit" value="(un)Veto" />
+      </form>
+    </td>
+    <td>
+      <a href="{{ url_for('candidates_edit', candidate_id=candidate.id)}}">Edit</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
 
-  <p>
-    Winning: {{ winning }}
-  </p>
+<p>
+  Winning: {{ winning }}
+</p>
 {% endblock %}
