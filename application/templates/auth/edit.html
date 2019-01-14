@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+<form method="POST" action="{{ url_for('auth_edit') }}">
+  <table>
+    <tr>
+      <td>
+        {{ form.name.label }}
+      </td>
+      <td>
+        {{ form.name }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.username.label }}
+      </td>
+      <td>
+        {{ form.username }}
+      </td>
+    </tr>
+    <tr>
+      Change password:
+    </tr>
+    <tr>
+      <td>
+        {{ form.password_old.label }}
+      </td>
+      <td>
+        {{ form.password_old }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.password_new.label }}
+      </td>
+      <td>
+        {{ form.password_new }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.password_check.label }}
+      </td>
+      <td>
+        {{ form.password_check }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Save changes" />
+      </td>
+    </tr>
+</form>
+
+<form method="POST" action="{{ url_for('auth_delete') }}">
+  <input type="submit" value="Delete account" />
+</form>
+{% endblock %}

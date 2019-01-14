@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 from application import app, db
 from application.auth.models import User
-from application.auth.forms import LoginForm, RegisterForm
+from application.auth.forms import LoginForm, RegisterForm, EditForm
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
@@ -44,4 +44,33 @@ def auth_register():
     db.session().commit()
 
     login_user(new_user)
+    return redirect(url_for("index"))
+
+@app.route("/auth/edit.html", methods = ["GET", "POST"])
+@login_required
+def auth_edit():
+    if request.method == "GET":
+        return render_template("auth/edit.html", form=EditForm(obj=current_user))
+
+    form = EditForm(request.form)
+
+    if (form.password_new.data != ""):
+        if (form.password_old.data != current_user.password):
+            return render_template("auth/edit.html", form=form, error="Wrong password!")
+
+        if (form.password_new.data != form.password_check.data):
+            return render_template("auth/edit.html", form=form, error="New passwords didn't match")
+
+        current_user.password = form.password_new.data
+
+    current_user.name = form.name.data
+    current_user.username = form.username.data
+    db.session.commit()
+
+    return redirect(url_for("index"))
+
+@app.route("/auth/delete", methods=["POST"])
+@login_required
+def auth_delete():
+    # TODO
     return redirect(url_for("index"))
