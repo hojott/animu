@@ -13,9 +13,9 @@ class Candidate(Base):
     url = db.Column(db.String(144), nullable=False)
     nominator_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     approvals = db.relationship("Approval", backref='approval', lazy=True)
-    vetoers = db.relationship("Veto", backref='veto', lazy=True)
+    vetoes = db.relationship("Veto", backref='veto', lazy=True)
     tags = db.relationship('Tag', secondary=tags, lazy='subquery',
-        backref=db.backref('pages', lazy=True))
+        backref=db.backref('candidates', lazy=True))
 
     def __init__(self, name):
         self.name = name

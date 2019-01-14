@@ -17,14 +17,14 @@ from application.auth.models import User
 def candidates_index():
     candidates = Candidate.query.all()
     for c in candidates:
-        setattr(c, "approval", Approval.query.filter_by(candidate_id=c.id).count())
-        setattr(c, "veto", Veto.query.filter_by(candidate_id=c.id).count())
+        setattr(c, "approval", len(c.approvals))
+        setattr(c, "veto", len(c.vetoes))
         displayed_tags = []
         for tag in c.tags:
             displayed_tags.append(tag.name)
         setattr(c, "displayed_tags", displayed_tags)
 
-    candidates = sorted(candidates, reverse=True, key=lambda c: c.approval)
+    candidates = sorted(candidates, key=lambda c: c.approval, reverse=True)
     candidates = sorted(candidates, key=lambda c: c.veto)
     return render_template("candidates/list.html", winning=Candidate.find_winning_candidates(), user=User, candidates=candidates)
 
