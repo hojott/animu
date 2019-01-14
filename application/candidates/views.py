@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, login_manager
 
 from application import app, db
 from application.candidates import models
@@ -48,7 +48,12 @@ def candidates_edit(candidate_id):
     candidate = Candidate.query.get(candidate_id)
     
     if request.method == "GET":
-        return render_template("candidates/edit.html", form=EditForm(obj=candidate), candidate=candidate)
+        return render_template("candidates/edit.html",
+        form=EditForm(obj=candidate), candidate=candidate)
+
+    if candidate.nominator_id != current_user.id:
+        return render_template("candidates/edit.html", error="You can't edit other people's candidates!",
+        form=EditForm(obj=candidate), candidate=candidate)
 
     form = EditForm(request.form)
 
@@ -64,6 +69,11 @@ def candidates_edit(candidate_id):
 @login_required
 def candidates_delete(candidate_id):
     candidate = Candidate.query.get(candidate_id)
+
+    if candidate.nominator_id != current_user.id:
+        return render_template("candidates/edit.html", error="You can't delete other people's candidates!",
+            form=EditForm(obj=candidate), candidate=candidate)
+
     Approval.query.filter_by(voter_id=candidate_id).delete()
     Veto.query.filter_by(voter_id=candidate_id).delete()
     db.session().delete(candidate)
