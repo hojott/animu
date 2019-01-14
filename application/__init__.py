@@ -17,6 +17,7 @@ from application import views
 
 from application.candidates import models
 from application.candidates import views
+from application.candidates.models import tags
 
 from application.votes import models
 
@@ -40,5 +41,6 @@ def load_user(user_id):
 
 try:
     db.create_all()
+    tags.create(checkfirst=True)
 except:
     pass
