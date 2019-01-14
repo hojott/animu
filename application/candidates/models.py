@@ -3,7 +3,7 @@ from application.models import Base
 from application.votes.models import Approval, Veto
 
 tags = db.Table('tags',
-    db.Column('tag_name', db.Integer, db.ForeignKey('tag.name'), primary_key=True),
+    db.Column('tag_name', db.String(50), db.ForeignKey('tag.name'), primary_key=True),
     db.Column('candidate_id', db.Integer, db.ForeignKey('candidate.id'), primary_key=True)
 )
 
