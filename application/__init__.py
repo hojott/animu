@@ -17,7 +17,6 @@ from application import views
 
 from application.candidates import models
 from application.candidates import views
-from application.candidates.models import tags
 
 from application.votes import models
 
