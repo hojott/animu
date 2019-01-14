@@ -2,6 +2,11 @@ from application import db
 from application.models import Base
 from application.votes.models import Approval, Veto
 
+tags = db.Table('tags',
+    db.Column('tag_name', db.Integer, db.ForeignKey('tag.name'), primary_key=True),
+    db.Column('candidate_id', db.Integer, db.ForeignKey('candidate.id'), primary_key=True)
+)
+
 class Candidate(Base):
     name = db.Column(db.String(144), nullable=False)
     selected = db.Column(db.Boolean, nullable = False)
@@ -37,7 +42,3 @@ class Candidate(Base):
 
 class Tag(db.Model):
     name = db.Column(db.String(50), primary_key=True)
-
-class Tags(db.Model):
-    tag_name = db.Column('tag_name', db.Integer, db.ForeignKey('tag.name'), primary_key=True)
-    candidate_id = db.Column('candidate_id', db.Integer, db.ForeignKey('candidate.id'), primary_key=True)
