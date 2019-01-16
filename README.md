@@ -10,7 +10,7 @@ Run these in the root directory to launch the app at
 ```
 > python3 -m venv venv
 > source venv/bin/activate
-> pip install -r requirement.txt
+> pip install -r requirements.txt
 > python3 run.py
 ```
 
