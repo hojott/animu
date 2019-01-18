@@ -33,3 +33,7 @@ If you've forked this on GitHub, you may want to use [Heroku's GitHub integratio
 Before voting, you need to register an account. It is recommended that you use an empty password for maximum security.
 
 After registering, you can add candidates and vote on them. The electoral system is [approval voting](https://en.wikipedia.org/wiki/Approval_voting) with the addition of an unrestricted veto right for everyone. Voting is not anonymous so that the veto cannot be abused.
+
+## Documentation
+* [User stories (in Finnish)](https://github.com/OAarne/heppa/blob/master/documentation/k%C3%A4ytt%C3%B6tapaukset.md)
+* [Database diagram](https://github.com/OAarne/heppa/blob/master/documentation/database_diagram.png)
