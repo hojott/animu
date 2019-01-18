@@ -28,12 +28,11 @@ class Candidate(Base):
     def find_winning_candidates():
         # Sort unvetoed candidates by approvals
         stmt = text("SELECT candidate.id, candidate.name, COUNT(approval.id) AS count "
-                    "FROM Candidate, Approval "
+                    "FROM Candidate "
                     "LEFT JOIN veto ON veto.candidate_id = candidate.id "
-                    # "LEFT JOIN approval ON approval.candidate_id = candidate.id "
-                    "WHERE (veto.candidate_id IS NULL) "
-                    "AND (approval.candidate_id = candidate.id)"
+                    "LEFT JOIN approval ON approval.candidate_id = candidate.id "
                     "GROUP BY candidate.id "
+                    "HAVING COUNT(veto.candidate_id) = 0 "
                     "ORDER BY count")
         query_result = db.engine.execute(stmt)
 
