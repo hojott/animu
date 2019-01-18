@@ -26,22 +26,30 @@ class Candidate(Base):
 
     @staticmethod
     def find_winning_candidates():
-        candidates = Candidate.query.all()
-        winners = []
-        max_score = -1
-        for c in candidates:
-            if Veto.query.filter_by(candidate_id=c.id).count() != 0:
-                continue
-            score = Approval.query.filter_by(candidate_id=c.id).count()
-            if score > max_score:
-                winners.clear()
-                winners.append(c.name)
-                max_score = score
-            elif score == max_score:
-                winners.append(c.name)
-        
-        return winners
-        
+        # Sort unvetoed candidates by approvals
+        stmt = text("SELECT candidate.id, candidate.name, COUNT(approval.id) AS count "
+                    "FROM Candidate, Approval "
+                    "LEFT JOIN veto ON veto.candidate_id = candidate.id "
+                    # "LEFT JOIN approval ON approval.candidate_id = candidate.id "
+                    "WHERE (veto.candidate_id IS NULL) "
+                    "AND (approval.candidate_id = candidate.id)"
+                    "GROUP BY candidate.id "
+                    "ORDER BY count")
+        query_result = db.engine.execute(stmt)
+
+        # Select all tied for first place
+        result = []
+        max_votes = -1
+        for row in query_result:
+            votes = row[2]
+            if votes > max_votes:
+                result.clear()
+                result.append(row[1])
+                max_votes = votes
+            elif votes == max_votes:
+                result.append(row[1])
+
+        return result
 
 class Tag(db.Model):
     name = db.Column(db.String(50), primary_key=True)
