@@ -74,8 +74,8 @@ def candidates_delete(candidate_id):
         return render_template("candidates/edit.html", error="You can't delete other people's candidates!",
             form=EditForm(obj=candidate), candidate=candidate)
 
-    Approval.query.filter_by(voter_id=candidate_id).delete()
-    Veto.query.filter_by(voter_id=candidate_id).delete()
+    Approval.query.filter_by(candidate_id=candidate_id).delete()
+    Veto.query.filter_by(candidate_id=candidate_id).delete()
     db.session().delete(candidate)
     db.session().commit()
 
