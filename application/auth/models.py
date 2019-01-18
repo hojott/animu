@@ -9,7 +9,7 @@ class User(Base):
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
 
-    nominations = db.relationship("Candidate", backref='account', lazy=True)
+    nominations = db.relationship("Candidate", backref='account', lazy=True, cascade="all, delete-orphan")
     approvals = db.relationship("Approval", cascade="all, delete-orphan")
     vetoes = db.relationship("Veto", cascade="all, delete-orphan")
 

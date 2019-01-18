@@ -72,5 +72,6 @@ def auth_edit():
 @app.route("/auth/delete", methods=["POST"])
 @login_required
 def auth_delete():
-    # TODO
+    db.session.delete(current_user)
+    db.session.commit()
     return redirect(url_for("index"))
