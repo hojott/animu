@@ -1,6 +1,7 @@
 from application import db
 from application.models import Base
 from application.votes.models import Approval, Veto
+from sqlalchemy.sql import text
 
 tags = db.Table('tags',
     db.Column('tag_name', db.String(50), db.ForeignKey('tag.name'), primary_key=True),
@@ -17,10 +18,11 @@ class Candidate(Base):
     tags = db.relationship('Tag', secondary=tags, lazy='subquery',
         backref=db.backref('candidates', lazy=True))
 
-    def __init__(self, name):
+    def __init__(self, name, nominator_id, url = ""):
         self.name = name
         self.selected = False
-        self.url = ""
+        self.url = url
+        self.nominator_id = nominator_id
 
     @staticmethod
     def find_winning_candidates():
@@ -39,6 +41,7 @@ class Candidate(Base):
                 winners.append(c.name)
         
         return winners
+        
 
 class Tag(db.Model):
     name = db.Column(db.String(50), primary_key=True)

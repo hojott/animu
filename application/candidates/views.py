@@ -17,8 +17,13 @@ from application.auth.models import User
 def candidates_index():
     candidates = Candidate.query.all()
     for c in candidates:
+        vetos = Veto.query.filter_by(candidate_id=c.id)
+        vetoers = []
+        for veto in vetos:
+            vetoers.append(User.query.get(veto.voter_id).name)
+        setattr(c, "vetoers", vetoers)
         setattr(c, "approval", len(c.approvals))
-        setattr(c, "veto", len(c.vetoes))
+        setattr(c, "veto", len(c.vetoers))
         displayed_tags = []
         for tag in c.tags:
             displayed_tags.append(tag.name)
@@ -121,9 +126,7 @@ def candidates_create():
     if not form.validate():
         return render_template("tasks/new.html", form=form)
 
-    candidate = Candidate(form.name.data)
-    candidate.url = form.url.data
-    candidate.nominator_id = current_user.id
+    candidate = Candidate(form.name.data, current_user.id, form.url.data)
 
     db.session().add(candidate)
     db.session().commit()

@@ -12,7 +12,7 @@
     <th>Nominator</th>
     <th>Tags</th>
     <th>Approvals</th>
-    <th>Veto</th>
+    <th>Vetoers</th>
     <th></th>
     <th></th>
     <th></th>
@@ -29,7 +29,7 @@
     <td>{{ user.query.get(candidate.nominator_id).name }}</td>
     <td>{{ candidate.displayed_tags }}</td>
     <td>{{ candidate.approval }}</td>
-    <td>{{ candidate.veto }}</td>
+    <td>{{ candidate.vetoers }}</td>
     <td>
       <form method="POST" action="{{ url_for('candidates_set_approved', candidate_id=candidate.id) }}">
         <input type="submit" value="(un)Approve" />
