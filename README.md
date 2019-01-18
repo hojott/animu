@@ -36,4 +36,5 @@ After registering, you can add candidates and vote on them. The electoral system
 
 ## Documentation
 * [User stories (in Finnish)](https://github.com/OAarne/heppa/blob/master/documentation/k%C3%A4ytt%C3%B6tapaukset.md)
+* [Database details](https://github.com/OAarne/heppa/blob/master/documentation/database.md)
 * [Database diagram](https://github.com/OAarne/heppa/blob/master/documentation/database_diagram.png)
