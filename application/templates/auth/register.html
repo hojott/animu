@@ -2,6 +2,9 @@
 
 {% block body %}
 {{ error }}
+<p>
+  Please note that this application is not secure in any way. Do not use passwords here that you have used elsewhere. The easiest solution is to simply have an empty password.
+</p>
 <form method="POST" action="{{ url_for('auth_register') }}">
   <table>
     <tr>
