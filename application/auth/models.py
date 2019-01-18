@@ -45,19 +45,16 @@ class User(Base):
     # Find the number of users with active votes
     @staticmethod
     def how_many_voters():
-        stmt = text("SELECT COUNT(*) "
+        stmt = text("SELECT COUNT(DISTINCT account.id) "
                     "FROM account "
                     "LEFT JOIN veto ON account.id = veto.voter_id "
                     "LEFT JOIN approval ON account.id = approval.voter_id "
-                    "GROUP BY account.id "
-                    "HAVING (approval.voter_id IS NOT NULL) OR (veto.voter_id IS NOT NULL)")
+                    "WHERE (approval.voter_id IS NOT NULL) OR (veto.voter_id IS NOT NULL)")
 
         query_result = db.engine.execute(stmt)
 
-        return len(query_result.fetchall())
-
-        row = query_result.fetchone()
+        row = query_result.first()
         if row == None:
             return 0
         else:
-            return row
+            return row[0]
