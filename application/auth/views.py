@@ -32,6 +32,9 @@ def auth_register():
 
     form = RegisterForm(request.form)
 
+    if len(form.username.data) < 2:
+        return render_template("auth/register.html", form=form, error="Username must be at least two characters long")
+
     if (User.query.filter_by(username=form.username.data).first() != None):
         return render_template("auth/register.html", form=form, error="The username you entered is already taken")
 
@@ -54,6 +57,9 @@ def auth_edit():
 
     form = EditForm(request.form)
 
+    if len(form.username.data) < 2:
+        return render_template("auth/edit.html", form=form, error="Username must be at least two characters long")
+    
     if (form.password_new.data != ""):
         if (form.password_old.data != current_user.password):
             return render_template("auth/edit.html", form=form, error="Wrong password!")
