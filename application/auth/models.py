@@ -1,6 +1,8 @@
 from application import db
 from application.models import Base
 
+from sqlalchemy.sql import text
+
 class User(Base):
 
     __tablename__ = "account"
@@ -35,3 +37,27 @@ class User(Base):
             return ["ADMIN"]
         else:
             return []
+    
+    @staticmethod
+    def is_valid_username(username: str) -> bool:
+        return len(username) > 1
+
+    # Find the number of users with active votes
+    @staticmethod
+    def how_many_voters():
+        stmt = text("SELECT COUNT(*) "
+                    "FROM account "
+                    "LEFT JOIN veto ON account.id = veto.voter_id "
+                    "LEFT JOIN approval ON account.id = approval.voter_id "
+                    "GROUP BY account.id "
+                    "HAVING (approval.voter_id IS NOT NULL) OR (veto.voter_id IS NOT NULL)")
+
+        query_result = db.engine.execute(stmt)
+
+        return len(query_result.fetchall())
+
+        row = query_result.fetchone()
+        if row == None:
+            return 0
+        else:
+            return row

@@ -31,7 +31,11 @@ def candidates_index():
 
     candidates = sorted(candidates, key=lambda c: c.approval, reverse=True)
     candidates = sorted(candidates, key=lambda c: c.veto)
-    return render_template("candidates/list.html", winning=Candidate.find_winning_candidates(), user=User, candidates=candidates)
+    return render_template("candidates/list.html",
+                            winning=Candidate.find_winning_candidates(),
+                            user=User,
+                            candidates=candidates,
+                            n_of_voters=User.how_many_voters())
 
 @app.route("/candidates/new/")
 @login_required
