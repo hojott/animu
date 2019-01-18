@@ -10,6 +10,8 @@ class User(Base):
     password = db.Column(db.String(144), nullable=False)
 
     nominations = db.relationship("Candidate", backref='account', lazy=True)
+    approvals = db.relationship("Approval", cascade="all, delete-orphan")
+    vetoes = db.relationship("Veto", cascade="all, delete-orphan")
 
     def __init__(self, name, username, password):
         self.name = name

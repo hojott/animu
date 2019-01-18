@@ -12,8 +12,8 @@ class Candidate(Base):
     selected = db.Column(db.Boolean, nullable = False)
     url = db.Column(db.String(144), nullable=False)
     nominator_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
-    approvals = db.relationship("Approval", backref='approval', lazy=True)
-    vetoes = db.relationship("Veto", backref='veto', lazy=True)
+    approvals = db.relationship("Approval", backref='approval', lazy=True, cascade="all, delete-orphan")
+    vetoes = db.relationship("Veto", backref='veto', lazy=True, cascade="all, delete-orphan")
     tags = db.relationship('Tag', secondary=tags, lazy='subquery',
         backref=db.backref('candidates', lazy=True))
 
