@@ -15,7 +15,7 @@ from application.auth.models import User
 @app.route("/candidates/", methods=["GET"])
 @app.route("/candidates", methods=["GET"])
 def candidates_index():
-    candidates = Candidate.query.all()
+    candidates = Candidate.query.filter_by(selected=False).all()
     for c in candidates:
         vetos = Veto.query.filter_by(candidate_id=c.id)
         vetoers = []
@@ -24,6 +24,7 @@ def candidates_index():
         setattr(c, "vetoers", vetoers)
         setattr(c, "approval", len(c.approvals))
         setattr(c, "veto", len(c.vetoers))
+        setattr(c, "nominator", User.query.get(c.nominator_id).name)
         displayed_tags = []
         for tag in c.tags:
             displayed_tags.append(tag.name)
@@ -33,9 +34,23 @@ def candidates_index():
     candidates = sorted(candidates, key=lambda c: c.veto)
     return render_template("candidates/list.html",
                             winning=Candidate.find_winning_candidates(),
-                            user=User,
                             candidates=candidates,
                             n_of_voters=User.how_many_voters())
+
+@app.route("/candidates/selected/")
+def candidates_index_selected():
+    candidates = Candidate.query.filter_by(selected=True).all()
+    displayed_tags = []
+    for c in candidates:
+        for tag in c.tags:
+            displayed_tags.append(tag.name)
+        setattr(c, "displayed_tags", displayed_tags)
+
+        setattr(c, "nominator", User.query.get(c.nominator_id).name)
+    
+    candidates = sorted(candidates, key=lambda c: c.date_modified)
+
+    return render_template("candidates/selected.html", candidates=candidates)
 
 @app.route("/candidates/new/")
 @login_required

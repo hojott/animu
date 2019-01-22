@@ -26,7 +26,7 @@
     <a href="{{ candidate.url }}">{{ candidate.name }}</a>
     {% endif %}
     </td>
-    <td>{{ user.query.get(candidate.nominator_id).name }}</td>
+    <td>{{ candidate.nominator }}</td>
     <td>{{ candidate.displayed_tags }}</td>
     <td>{{ candidate.approval }}</td>
     <td>{{ candidate.vetoers }}</td>
@@ -49,5 +49,9 @@
 
 <p>
   {{ n_of_voters }} people have voted, {{ winning }} is winning.
+</p>
+
+<p>
+  <a href="{{ url_for('candidates_index_selected') }}">View previously selected candidates</a>
 </p>
 {% endblock %}
