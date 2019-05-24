@@ -5,6 +5,8 @@ from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm, EditForm
 
+from datetime import timedelta
+
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
@@ -17,7 +19,7 @@ def auth_login():
         return render_template("auth/loginform.html", form=form,
                                 error="No such username or password")
 
-    login_user(user)
+    login_user(user, remember=True, duration=timedelta(weeks=520))
     return redirect(url_for("index"))
 
 @app.route("/auth/logout")
