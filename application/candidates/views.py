@@ -25,6 +25,9 @@ def candidates_index():
         setattr(c, "approval", len(c.approvals))
         setattr(c, "veto", len(c.vetoers))
         setattr(c, "nominator", User.query.get(c.nominator_id).name)
+        if current_user.is_active:
+            setattr(c, "approval_status",
+                    Approval.query.filter_by(voter_id=current_user.id).count())
         displayed_tags = []
         for tag in c.tags:
             displayed_tags.append(tag.name)
