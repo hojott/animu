@@ -22,6 +22,10 @@ def candidates_index():
         for veto in vetos:
             vetoers.append(User.query.get(veto.voter_id).name)
         setattr(c, "vetoers", vetoers)
+        approvers = []
+        for approval in c.approvals:
+            approvers.append(User.query.get(approval.voter_id).name)
+        setattr(c, "approvers", approvers)
         setattr(c, "approval", len(c.approvals))
         setattr(c, "veto", len(c.vetoers))
         setattr(c, "nominator", User.query.get(c.nominator_id).name)
