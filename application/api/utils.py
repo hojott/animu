@@ -7,7 +7,6 @@ def parse_candidate(candidate: Candidate) -> APICandidate:
         name = candidate.name,
         url = candidate.url,
         nominator = User.query.get(candidate.nominator_id).name,
-        selected = candidate.selected,
         approvals = [User.query.get(approval.voter_id).name for approval in candidate.approvals],
         vetoes = [User.query.get(veto.voter_id).name for veto in candidate.vetoes],
         tags = [tag.name for tag in candidate.tags]

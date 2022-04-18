@@ -10,7 +10,6 @@ class APIBase():
 
 @dataclass
 class APICandidate(APIBase):
-    selected: bool
     approvals: Approval
     vetoes: Veto
     tags: Tag
