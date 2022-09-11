@@ -37,9 +37,9 @@ If you've forked this on GitHub, you may want to use [Heroku's GitHub integratio
 
 ## User Instructions
 
-**NB: this application is not secure in any way. Do not reuse passwords or otherwise expect that anything you enter into this application is stored securely**
+**NB: this application is not secure in any way. Any user can log in with your username.**
 
-Before voting, you need to register an account. It is recommended that you use an empty password for maximum security.
+Before voting, you need to register an account.
 
 After registering, you can add candidates and vote on them. The electoral system is [approval voting](https://en.wikipedia.org/wiki/Approval_voting) with the addition of an unrestricted veto right for everyone. Voting is not anonymous so that the veto cannot be abused.
 

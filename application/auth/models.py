@@ -32,6 +32,7 @@ class User(Base):
     def is_authenticated(self):
         return True
 
+    # Currently roles are not used for anything
     def roles(self):
         if self.username == "admin":
             return ["ADMIN"]

@@ -3,7 +3,7 @@
 {% block body %}
 {{ error }}
 <p>
-  Please note that this application is not secure in any way. Do not use passwords here that you have used elsewhere. The easiest solution is to simply have an empty password.
+  Please note that this application is not secure in any way. Any user can log in with your username.
 </p>
 <form method="POST" action="{{ url_for('auth_register') }}">
   <table>
@@ -21,23 +21,6 @@
       </td>
       <td>
         {{ form.name }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.password.label }}
-      </td>
-      <td>
-        {{ form.password }}
-      </td>
-    </tr>
-    <tr>
-    <tr>
-      <td>
-        {{ form.pw_check.label }}
-      </td>
-      <td>
-        {{ form.pw_check }}
       </td>
     </tr>
     <tr>

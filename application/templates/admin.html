@@ -1,9 +1,21 @@
 {% extends "layout.html" %}
 
 {% block body %}
+{{ error }}
 <form method="POST" action="{{ url_for('admin_reset_votes') }}">
-
-  <input type="submit" value="Reset votes" />
-
+  <table>
+    <tr>
+      <td>
+	      {{ form.adminpass.label }}
+      </td>
+      <td>
+	      {{ form.adminpass }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+	      <input type="submit" value="Reset votes" />
+      </td>
+    </tr>
 </form>
 {% endblock %}

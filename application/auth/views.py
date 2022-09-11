@@ -14,10 +14,9 @@ def auth_login():
 
     form = LoginForm(request.form)
 
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    user = User.query.filter_by(username=form.username.data).first()
     if not user:
-        return render_template("auth/loginform.html", form=form,
-                                error="No such username or password")
+        return render_template("auth/loginform.html", form=form, error="No such username")
 
     login_user(user, remember=True, duration=timedelta(weeks=520))
     return redirect(url_for("index"))
@@ -40,10 +39,7 @@ def auth_register():
     if (User.query.filter_by(username=form.username.data).first() != None):
         return render_template("auth/register.html", form=form, error="The username you entered is already taken")
 
-    if (form.password.data != form.pw_check.data):
-        return render_template("auth/register.html", form=form, error="Passwords didn't match")
-
-    new_user = User(form.name.data, form.username.data, form.password.data)
+    new_user = User(form.name.data, form.username.data, "")
 
     db.session().add(new_user)
     db.session().commit()
@@ -61,15 +57,6 @@ def auth_edit():
 
     if len(form.username.data) < 2:
         return render_template("auth/edit.html", form=form, error="Username must be at least two characters long")
-    
-    if (form.password_new.data != ""):
-        if (form.password_old.data != current_user.password):
-            return render_template("auth/edit.html", form=form, error="Wrong password!")
-
-        if (form.password_new.data != form.password_check.data):
-            return render_template("auth/edit.html", form=form, error="New passwords didn't match")
-
-        current_user.password = form.password_new.data
 
     current_user.name = form.name.data
     current_user.username = form.username.data

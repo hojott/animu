@@ -6,7 +6,7 @@ All tables include columns for creation date and latest modification date.
 
 ### Account
 
-Each row represents a user account. Passwords are stored in plain text.
+Each row represents a user account. The password field is currently only used for the admin account.
 
 ```SQL
 CREATE TABLE account (
