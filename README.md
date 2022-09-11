@@ -6,6 +6,15 @@ Web-app that allows approval voting (with veto), intended for selecting the Guru
 
 ## Installation Instructions
 ### Local Setup
+Make sure that you have these dependencies installed on your machine:
+- Python 3 and its dev packages
+- Python 3 venv 
+- PostgreSQL and its dev packages
+
+On Debian/Ubuntu
+```
+sudo apt install python3-dev python3-venv postgresql libpq-dev
+```
 Run these in the root directory to launch the app at 
 ```
 > python3 -m venv venv
