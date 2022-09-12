@@ -1,4 +1,4 @@
-FROM python:3.8-alpine as builder
+FROM python:3.8-alpine
 
 WORKDIR /heppa
 

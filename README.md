@@ -9,7 +9,7 @@ Web-app that allows approval voting (with veto), intended for selecting the Guru
 Make sure that you have these dependencies installed on your machine:
 - Python 3 and its dev packages
 - Python 3 venv 
-- PostgreSQL and its dev packages
+- PostgreSQL and its dev packages (may also work without)
 
 On Debian/Ubuntu
 ```
@@ -26,7 +26,7 @@ Run these in the root directory to launch the app at
 You can then open the app in your browser at `http://127.0.0.1:5000/`
 
 ### Docker Setup
-Install Docker
+Install Docker and add your user to the docker group.
 
 Run this command to build the docker image
 ```
