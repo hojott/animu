@@ -25,6 +25,21 @@ Run these in the root directory to launch the app at
 
 You can then open the app in your browser at `http://127.0.0.1:5000/`
 
+### Docker Setup
+Install Docker
+
+Run this command to build the docker image
+```
+docker build -t heppa .
+```
+
+This command will then start the application in docker
+```
+docker run --rm -p 8000:8000 heppa
+```
+
+You can then open the app in your browser at `http://127.0.0.1:8000/`
+
 ### Heroku Setup
 Simply make sure the application name in the command below is unique
 ```
