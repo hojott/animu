@@ -11,11 +11,9 @@ services:
       - 8000:8000
     environment:
       - PRODUCTION=1
-      - DATABASE_URL=postgres://heppauser:$POSTGRES_PASSWORD@db:5432/heppadb
+      - DATABASE_URL=postgresql://heppauser:$POSTGRES_PASSWORD@db:5432/heppadb
   db:
     image: postgres:alpine
-    ports:
-      - 5432:5432
     volumes:
       - heppa-postgres-data:/var/lib/postgresql/data
     environment:

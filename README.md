@@ -40,6 +40,18 @@ docker run --rm -p 8000:8000 heppa
 
 You can then open the app in your browser at `http://127.0.0.1:8000/`
 
+### Production docker setup
+Install Docker and Docker Compose.
+
+Define POSTGRES_PASSWORD env variable.
+
+Run this command to start the app
+```
+docker compose up
+```
+
+It should now be available at `http://127.0.0.1:8000/`
+
 ### Heroku Setup
 Simply make sure the application name in the command below is unique
 ```
