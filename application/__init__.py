@@ -7,6 +7,7 @@ import os
 
 if os.environ.get("PRODUCTION"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+    app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {"pool_pre_ping": True}
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///candidates.db"
     app.config["SQLALCHEMY_ECHO"] = True
