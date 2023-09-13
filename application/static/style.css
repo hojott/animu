@@ -3,7 +3,7 @@ p {
 }
 
 main {
-  max-width: 80ch;
+  max-width: 100ch;
   padding-inline: .5rem;
   margin-inline: auto;
 }
