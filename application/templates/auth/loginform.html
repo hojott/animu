@@ -1,11 +1,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+{% if error %}
+<div class="alert alert-danger">
+  {{ error }}
+</div>
+{% endif %}
+
 <form method="POST" id="login" action="{{ url_for('auth_login') }}">
-  <div class="form">
-  {{ form.username.label }}
-  {{ form.username }}
+  <div>
+    {{ form.username.label }}
+    {{ form.username }}
   </div>
 	<input type="submit" id="login-button" class="btn btn-primary" value="Login"/>
 </form>

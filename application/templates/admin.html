@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+{% if error %}
+<div class="alert alert-danger">
+  {{ error }}
+</div>
+{% endif %}
+
 <form method="POST" action="{{ url_for('admin_reset_votes') }}">
   <table>
     <tr>

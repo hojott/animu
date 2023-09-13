@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+{% if error %}
+<div class="alert alert-danger">
+  {{ error }}
+</div>
+{% endif %}
+
 <form method="POST" id="register" action="{{ url_for('auth_register') }}">
   <div>
     {{ form.username.label }}
