@@ -5,6 +5,23 @@ from application.auth.models import User
 from application.votes.models import Veto, Approval
 from application.forms import AdminForm
 
+@app.template_filter()
+def quote(value):
+    return "\"" + value + "\""
+
+# Turn array into a string with elements separated by commas and the last element separated by "and"
+# Takes in a generator
+@app.template_filter()
+def listify(generator):
+    array = list(generator)
+    if len(array) == 0:
+        return ""
+    if len(array) == 1:
+        return array[0]
+    if len(array) == 2:
+        return array[0] + " and " + array[1]
+    return ", ".join(array[:-1]) + " and " + array[-1]
+
 @app.route("/")
 def index():
     return redirect(url_for("candidates_index"))

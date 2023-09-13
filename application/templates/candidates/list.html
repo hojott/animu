@@ -50,7 +50,8 @@
 </table>
 
 <p>
-  {{ n_of_voters }} people have voted, {{ winning }} is winning.
+  {{ n_of_voters }} {{ 'people have' if n_of_voters > 1 else 'person has' }} voted.
+  {{ winning|map('quote')|listify }} {{ 'are tied' if winning | length > 1 else 'is winning' }}.
 </p>
 
 <p>
