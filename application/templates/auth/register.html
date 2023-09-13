@@ -2,31 +2,20 @@
 
 {% block body %}
 {{ error }}
-<p>
+<form method="POST" id="register" action="{{ url_for('auth_register') }}">
+  <div>
+    {{ form.username.label }}
+    {{ form.username }}
+  </div>
+  <div>
+
+    {{ form.name.label }}
+    {{ form.name }}
+  </div>
+  <input type="submit" class="btn btn-primary" value="Register" />
+</form>
+
+<p class="bottom">
   Please note that this application is not secure in any way. Any user can log in with your username.
 </p>
-<form method="POST" action="{{ url_for('auth_register') }}">
-  <table>
-    <tr>
-      <td>
-        {{ form.username.label }}
-      </td>
-      <td>
-        {{ form.username }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.name.label }}
-      </td>
-      <td>
-        {{ form.name }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" value="Register" />
-      </td>
-    </tr>
-</form>
 {% endblock %}

@@ -16,22 +16,30 @@ from application.auth.models import User
 @app.route("/candidates", methods=["GET"])
 def candidates_index():
     candidates = Candidate.query.filter_by(selected=False).all()
+
     for c in candidates:
         vetos = Veto.query.filter_by(candidate_id=c.id)
         vetoers = []
         for veto in vetos:
             vetoers.append(User.query.get(veto.voter_id).name)
         setattr(c, "vetoers", vetoers)
+
         approvers = []
         for approval in c.approvals:
             approvers.append(User.query.get(approval.voter_id).name)
         setattr(c, "approvers", approvers)
+
         setattr(c, "approval", len(c.approvals))
         setattr(c, "veto", len(c.vetoers))
+
         setattr(c, "nominator", User.query.get(c.nominator_id).name)
+
         if current_user.is_active:
-            setattr(c, "approval_status",
-                    Approval.query.filter_by(voter_id=current_user.id, candidate_id=c.id).count())
+            setattr(c, "approved",
+                    Approval.query.filter_by(voter_id=current_user.id, candidate_id=c.id).count() > 0)
+            setattr(c, "vetoed",
+                    Veto.query.filter_by(voter_id=current_user.id, candidate_id=c.id).count() > 0)
+            
         displayed_tags = []
         for tag in c.tags:
             displayed_tags.append(tag.name)
@@ -39,6 +47,7 @@ def candidates_index():
 
     candidates = sorted(candidates, key=lambda c: c.approval, reverse=True)
     candidates = sorted(candidates, key=lambda c: c.veto)
+    
     return render_template("candidates/list.html",
                             winning=Candidate.find_winning_candidates(),
                             candidates=candidates,

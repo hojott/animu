@@ -3,51 +3,45 @@
 {% block body %}
 <p>
   This application implements <a href="https://en.wikipedia.org/wiki/Approval_voting">approval voting</a> with
-  unrestricted veto-rights. Please vote in good faith, i.e. only veto a candidate if you <i>really</i> don't want to see it. Using a recognizable name is required to prevent abuse.
+  unrestricted veto-rights.
 </p>
+<p>Please vote in good faith, i.e. only veto a candidate if you <em>really</em> don't want to see it.</p>
+<p>Using a recognizable name is required to prevent abuse.</p>
 
-<table>
-  <tr>
-    <th>Candidate</th>
-    <th>Nominator</th>
-    <th>Tags</th>
-    <th>Approvals</th>
-    <th>Your Vote</th>
-    <th>Vetoers</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div id="candidates">
+  <div class="candidate header desktop">
+    <div class="name font-weight-bold">Name</div>
+    <div class="nominator font-weight-bold">Nominator</div>
+    <div class="actions"></div>
+  </div>
   {% for candidate in candidates %}
-  <tr>
-    <td>
-    {% if candidate.url == "" %}
-    {{ candidate.name }}
-    {% else %}
-    <a href="{{ candidate.url }}">{{ candidate.name }}</a>
-    {% endif %}
-    </td>
-    <td>{{ candidate.nominator }}</td>
-    <td>{{ candidate.displayed_tags }}</td>
-    <td title="{{ candidate.approvers }}">{{ candidate.approval }}</td>
-    <td>{{ candidate.approval_status }}</td>
-    <td>{{ candidate.vetoers }}</td>
-    <td>
-      <form method="POST" action="{{ url_for('candidates_set_approved', candidate_id=candidate.id) }}">
-        <input type="submit" value="(un)Approve" />
+  <div class="candidate {{ 'vetoed' if candidate.vetoes }}">
+    <div class="name">
+      {% if candidate.url == "" %}
+        {{ candidate.name }}
+      {% else %}
+        <a href="{{ candidate.url }}">{{ candidate.name }}</a>
+      {% endif %}
+    </div>
+
+    <div class="mobile-block">
+      <p class="nominator"><span class="mobile">Nominated by</span> {{ candidate.nominator }}</p>
+      {% if candidate.approvers %}<p class="mobile approvers">👍 Approved by {{ candidate.approvers | map('empty_to_epsilon') | listify }}</p>{% endif %}
+      {% if candidate.vetoers %}<p class="mobile vetoers">❌ Vetoed by {{ candidate.vetoers | map('empty_to_epsilon') | listify }}</p>{% endif %}
+    </div>
+
+    <div class="actions">
+      <form method="POST" class="action" action="{{ url_for('candidates_set_approved', candidate_id=candidate.id) }}">
+        <input type="submit" class="action btn {{ 'btn-success' if candidate.approved }}" value="{{ candidate.approval }} 👍" title="{{ candidate.approvers|map('empty_to_epsilon')|listify if candidate.approvers else 'No approvals' }}" />
       </form>
-    </td>
-    <td>
-      <form method="POST" action="{{ url_for('candidates_set_veto', candidate_id=candidate.id) }}">
-        <input type="submit" value="(un)Veto" />
+      <form method="POST" class="action" action="{{ url_for('candidates_set_veto', candidate_id=candidate.id) }}">
+        <input type="submit" class="action btn {{ 'btn-danger' if candidate.vetoed }}" value="❌" title="{{ candidate.vetoers|map('empty_to_epsilon')|listify if candidate.vetoers else 'No vetoes' }}" />
       </form>
-    </td>
-    <td>
-      <a href="{{ url_for('candidates_edit', candidate_id=candidate.id)}}">Edit</a>
-    </td>
-  </tr>
+      <a href="{{ url_for('candidates_edit', candidate_id=candidate.id)}}">✏️</a>
+    </div>
+  </div>
   {% endfor %}
-</table>
+</div>
 
 <p>
   {{ n_of_voters }} {{ 'people have' if n_of_voters > 1 else 'person has' }} voted.

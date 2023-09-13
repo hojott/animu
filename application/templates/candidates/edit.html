@@ -3,39 +3,22 @@
 {% block body %}
 {{ error }}
 <form method="POST" action="{{ url_for('candidates_edit', candidate_id=candidate.id) }}">
-  <table>
-    <tr>
-      <td>
-        {{ form.name.label }}
-      </td>
-      <td>
-        {{ form.name }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.url.label }}
-      </td>
-      <td>
-        {{ form.url }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.selected.label }}
-      </td>
-      <td>
-        {{ form.selected }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" value="Save changes" />
-      </td>
-    </tr>
+  <div>
+    {{ form.name.label }}
+    {{ form.name }}
+  </div>
+  <div>
+    {{ form.url.label }}
+    {{ form.url }}
+  </div>
+  <div class="checkbox">
+    {{ form.selected.label }}
+    {{ form.selected }}
+  </div>
+  <input type="submit" class="btn btn-primary" value="Save changes" />
 </form>
 
 <form method="POST" action="{{ url_for('candidates_delete', candidate_id=candidate.id) }}">
-    <input type="submit" value="Delete"/>
+    <input type="submit" class="btn btn-danger" value="Delete"/>
   </form>
 {% endblock %}

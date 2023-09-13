@@ -3,31 +3,18 @@
 {% block body %}
 {{ error }}
 <form method="POST" action="{{ url_for('auth_edit') }}">
-  <table>
-    <tr>
-      <td>
-        {{ form.name.label }}
-      </td>
-      <td>
-        {{ form.name }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.username.label }}
-      </td>
-      <td>
-        {{ form.username }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" value="Save changes" />
-      </td>
-    </tr>
+  <div>
+    {{ form.name.label }}
+    {{ form.name }}
+  </div>
+  <div>
+    {{ form.username.label }}
+    {{ form.username }}
+  </div>
+  <input type="submit" class="btn btn-primary" value="Save changes" />
 </form>
 
 <form method="POST" action="{{ url_for('auth_delete') }}">
-  <input type="submit" value="Delete account" />
+  <input type="submit" class="btn btn-danger" value="Delete account" />
 </form>
 {% endblock %}

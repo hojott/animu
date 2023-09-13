@@ -1,0 +1,117 @@
+p {
+  margin: 5px;
+}
+
+main {
+  max-width: 80ch;
+  padding-inline: .5rem;
+  margin-inline: auto;
+}
+
+th, tr {
+  padding: 5px;
+}
+
+#candidates p {
+  margin: 0;
+}
+
+#candidates {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-block: 2rem;
+}
+.candidate {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  padding: .5rem;
+  border-radius: 5pt;
+}
+.candidate:not(.header) {
+  background-color: var(--light);
+}
+.candidate.vetoed {
+  background-color: rgba(255, 0, 0, 0.05);  
+}
+.candidate .name {
+  flex-grow: 1;
+}
+.candidate .nominator {
+  min-width: 10ch;
+}
+.actions {
+  display: flex;
+  gap: 1ch;
+  align-items: center;
+}
+
+/* Hacks to get desktop header to align with flex table */
+.candidate.header .nominator {
+  padding-left: .5ch;
+}
+.actions {
+  min-width: 9.375rem;
+}
+
+/* Login and register */
+form:not(.action) input {
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 3rem;
+  font-size: 1.2rem;
+  padding-inline: .5rem;
+}
+form:not(.action) label {
+  display: block;
+  font-size: 1.25rem;
+}
+form:first-of-type:not(.action) {
+  margin-top: 10dvh;
+}
+
+form div.checkbox label {
+  display: inline;
+}
+form div.checkbox input {
+  width: 1rem;
+  height: 1rem;
+  margin-left: .5rem;
+}
+
+.mobile {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .mobile {
+    display: unset;
+  }
+  .desktop {
+    display: none;
+  } 
+
+  #candidates {
+    gap: 1rem;
+  }
+  .candidate {
+    flex-direction: column;
+    align-items: unset;
+  }
+  .candidate .name {
+    font-size: 1.3rem;
+  }
+  .candidate .mobile-block {
+    display: flex;
+    flex-direction: column;
+  }
+  .candidate .actions {
+    align-self: last baseline;
+    flex-direction: row-reverse;
+  }
+
+  .bottom {
+    position: absolute;
+    bottom: 1rem;
+  }
+}
