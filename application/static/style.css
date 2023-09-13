@@ -104,6 +104,7 @@ form div.checkbox input {
   .candidate .name {
     font-size: 1.3rem;
     grid-area: name;
+    align-self: flex-start;
   }
   .candidate .mobile-block {
     display: flex;
