@@ -9,9 +9,12 @@ from application.forms import AdminForm
 def quote(value):
     return "\"" + value + "\""
 
+# Replace empty strings with the same amount of epsilon characters
 @app.template_filter()
 def empty_to_epsilon(value):
-    return value if value.strip() else "ε"
+    if len(value) == 0:
+        return "∅"
+    return value if value.strip() else "ε" * len(value)
 
 # Takes in a generator
 @app.template_filter()
