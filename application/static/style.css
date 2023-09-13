@@ -39,7 +39,7 @@ th, tr {
   flex-grow: 1;
 }
 .candidate .nominator {
-  min-width: 10ch;
+  min-width: 15ch;
 }
 .actions {
   display: flex;
