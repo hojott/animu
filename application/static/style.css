@@ -93,13 +93,13 @@ form div.checkbox input {
 
   .candidate:not(.header) {
     display: grid;
-    grid-template-columns: 1fr .5rem min-content;
-    grid-template-rows: 1fr 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px; 
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: repeat(auto, 2);
+    grid-column-gap: .5rem;
+    grid-row-gap: 1rem; 
     grid-template-areas: 
-      "name none side"
-      "info none side"; 
+      "name side"
+      "info side"; 
   }
   .candidate .name {
     font-size: 1.3rem;
