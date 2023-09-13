@@ -91,23 +91,36 @@ form div.checkbox input {
     display: none;
   } 
 
-  #candidates {
-    gap: 1rem;
-  }
-  .candidate {
-    flex-direction: column;
-    align-items: unset;
+  .candidate:not(.header) {
+    display: grid;
+    grid-template-columns: 1fr .5rem min-content;
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px; 
+    grid-template-areas: 
+      "name none side"
+      "info none side"; 
   }
   .candidate .name {
     font-size: 1.3rem;
+    grid-area: name;
   }
   .candidate .mobile-block {
     display: flex;
     flex-direction: column;
+    grid-area: info;
   }
   .candidate .actions {
-    align-self: last baseline;
-    flex-direction: row-reverse;
+    grid-area: side;
+    flex-direction: column-reverse;
+    align-self: first baseline;
+    min-width: 0;
+  }
+  .candidate .actions form,
+  .candidate .actions .btn,
+  .candidate .actions a {
+    width: 100%;
+    text-align: center;
   }
 
   .bottom {

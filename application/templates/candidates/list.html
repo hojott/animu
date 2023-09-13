@@ -26,13 +26,14 @@
 
     <div class="mobile-block">
       <p class="nominator"><span class="mobile">Nominated by</span> {{ candidate.nominator }}</p>
-      {% if candidate.approvers %}<p class="mobile approvers">👍 Approved by {{ candidate.approvers | map('empty_to_epsilon') | listify }}</p>{% endif %}
-      {% if candidate.vetoers %}<p class="mobile vetoers">❌ Vetoed by {{ candidate.vetoers | map('empty_to_epsilon') | listify }}</p>{% endif %}
+      {% if candidate.approvers %}<p class="mobile approvers">👍 {{ candidate.approvers | map('empty_to_epsilon') | listify }}</p>{% endif %}
+      {% if candidate.vetoers %}<p class="mobile vetoers">❌ {{ candidate.vetoers | map('empty_to_epsilon') | listify }}</p>{% endif %}
     </div>
 
     <div class="actions">
       <form method="POST" class="action" action="{{ url_for('candidates_set_approved', candidate_id=candidate.id) }}">
-        <input type="submit" class="action btn {{ 'btn-success' if candidate.approved }}" value="{{ candidate.approval }} 👍" title="{{ candidate.approvers|map('empty_to_epsilon')|listify if candidate.approvers else 'No approvals' }}" />
+        <input type="submit" class="desktop action btn {{ 'btn-success' if candidate.approved }}" value="{{ candidate.approval }} 👍" title="{{ candidate.approvers|map('empty_to_epsilon')|listify if candidate.approvers else 'No approvals' }}" />
+        <input type="submit" class="mobile action btn {{ 'btn-success' if candidate.approved }}" value="👍" title="{{ candidate.approvers|map('empty_to_epsilon')|listify if candidate.approvers else 'No approvals' }}" />
       </form>
       <form method="POST" class="action" action="{{ url_for('candidates_set_veto', candidate_id=candidate.id) }}">
         <input type="submit" class="action btn {{ 'btn-danger' if candidate.vetoed }}" value="❌" title="{{ candidate.vetoers|map('empty_to_epsilon')|listify if candidate.vetoers else 'No vetoes' }}" />
