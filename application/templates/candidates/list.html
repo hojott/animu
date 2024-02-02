@@ -26,7 +26,7 @@
 
     <div class="mobile-block">
       <p class="nominator"><span class="mobile">Nominated by</span> {{ candidate.nominator }}</p>
-      {% if candidate.approvers %}<p class="mobile approvers">👍 {{ candidate.approvers | map('empty_to_epsilon') | listify }}</p>{% endif %}
+      {% if candidate.approvers %}<p class="mobile approvers">{{ candidate.approvers | length }}👍 ({{ candidate.approvers | map('empty_to_epsilon') | listify }})</p>{% endif %}
       {% if candidate.vetoers %}<p class="mobile vetoers">❌ {{ candidate.vetoers | map('empty_to_epsilon') | listify }}</p>{% endif %}
     </div>
 
