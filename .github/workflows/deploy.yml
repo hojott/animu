@@ -25,11 +25,25 @@ jobs:
           username: ${{ secrets.PRIVATE_REGISTRY_USER }}
           password: ${{ secrets.PRIVATE_REGISTRY_PW }}
 
+      - name: Extract Docker metadata
+        id: meta-docker
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ secrets.PRIVATE_REGISTRY_URL }}/heppa
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha
+            ${{ github.event_name == 'release' && format('type=raw,value={0}', github.event.release.tag_name) }}
+
       - name: Build and push Docker image
-        run: |
-          export TAG=$(echo $GITHUB_SHA | cut -c1-7)
-          docker build -t ${{ secrets.PRIVATE_REGISTRY_URL }}/heppa:$TAG .
-          docker push ${{ secrets.PRIVATE_REGISTRY_URL }}/heppa:$TAG
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: ${{ github.event_name == 'release' }}
+          tags: ${{ steps.meta-docker.outputs.tags }}
+          labels: ${{ steps.meta-docker.outputs.labels }}
 
   release:
     name: Deploy a new release
@@ -37,7 +51,7 @@ jobs:
     
     if: ${{ github.event_name == 'release' }}
 
-    needs: [build]
+    needs: [ build ]
 
     steps:
       - name: Trigger deployment
