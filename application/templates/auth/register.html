@@ -17,10 +17,10 @@
     {{ form.name.label }}
     {{ form.name }}
   </div>
-  <input type="submit" class="btn btn-primary" value="Register" />
+  <input type="submit" class="btn btn-primary" value="{{ _('Register') }}" />
 </form>
 
-<p class="bottom">
-  Please note that this application is not secure in any way. Any user can log in with your username.
-</p>
+<div class="alert alert-danger">
+  {{ _("Please note that this application is not secure in any way. Any user can log in with your username.") }}
+</div>
 {% endblock %}

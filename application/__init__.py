@@ -1,5 +1,21 @@
-from flask import Flask
+from flask import Flask, request, session
+
 app = Flask(__name__)
+
+from flask_babel import Babel
+locales = ["fi", "en"]
+def get_locale():
+    if request.args.get('lang') and request.args.get('lang') in locales:
+        session['lang'] = request.args.get('lang')
+    elif not session.get('lang'):
+        session['lang'] = request.accept_languages.best_match(locales)
+    # TODO: Get user preference from database if logged in (requires migrations)
+
+    return session.get('lang')
+
+babel = Babel(app, default_locale="fi", locale_selector=get_locale)
+app.jinja_env.globals['get_locale'] = get_locale
+app.jinja_env.globals['locales'] = locales
 
 from flask_sqlalchemy import SQLAlchemy
 

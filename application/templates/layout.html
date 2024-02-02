@@ -27,32 +27,44 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('candidates_index') }} ">List candidates</a>
+          <a class="nav-link" href="{{ url_for('candidates_index') }} ">{{ _("List candidates") }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('candidates_form') }} ">Add a candidate</a>
+          <a class="nav-link" href="{{ url_for('candidates_form') }} ">{{ _("Add a candidate") }}</a>
         </li>
       </ul>
       <div class="form-inline mt-2 mt-md-0">
         {% if current_user.is_authenticated %}
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth_edit') }} ">Edit Profile</a>
+            <a class="nav-link" href="{{ url_for('auth_edit') }} ">{{ _("Edit Profile") }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth_logout') }} ">Logout</a>
+            <a class="nav-link" href="{{ url_for('auth_logout') }} ">{{ _("Logout") }}</a>
           </li>
         </ul>
         {% else %}
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth_login') }} ">Login</a>
+            <a class="nav-link" href="{{ url_for('auth_login') }} ">{{ _("Login") }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth_register') }} ">Register</a>
+            <a class="nav-link" href="{{ url_for('auth_register') }} ">{{ _("Register") }}</a>
           </li>
         </ul>
         {% endif %}
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ get_locale() }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% for lang in locales %}
+                <a class="dropdown-item" href="?lang={{ lang }}">{{ lang }}</a>
+              {% endfor %}
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -60,8 +72,12 @@
   <main>
     {% block body %}
     <p>
-      Content.
+      {{ _("There seems to be an error in the application.") }}
     </p>
+    <p>
+      {{ _("Plase contact yllapito (at) tko-aly.fi.") }}
+    </p>
+    <a href="{{ url_for('candidates_index') }}">{{ _("Go back to the main page") }}</a>
     {% endblock %}
   </main>
 

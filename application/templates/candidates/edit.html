@@ -20,10 +20,10 @@
     {{ form.selected.label }}
     {{ form.selected }}
   </div>
-  <input type="submit" class="btn btn-primary" value="Save changes" />
+  <input type="submit" class="btn btn-primary" value="{{ _('Save changes') }}" />
 </form>
 
 <form method="POST" action="{{ url_for('candidates_delete', candidate_id=candidate.id) }}">
-    <input type="submit" class="btn btn-danger" value="Delete"/>
+    <input type="submit" class="btn btn-danger" value="{{ _('Delete') }}"/>
   </form>
 {% endblock %}

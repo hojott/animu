@@ -1,0 +1,244 @@
+# Finnish translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-02-02 19:32+0200\n"
+"PO-Revision-Date: 2024-02-02 18:33+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fi\n"
+"Language-Team: fi <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: application/forms.py:6
+msgid "Admin password"
+msgstr "Pääkäyttäjän salasana"
+
+#: application/views.py:42
+msgid "Wrong admin password"
+msgstr "Väärä salasana"
+
+#: application/auth/forms.py:6 application/auth/forms.py:13
+#: application/auth/forms.py:20
+msgid "Username"
+msgstr "Käyttäjätunnus"
+
+#: application/auth/forms.py:12 application/auth/forms.py:19
+msgid "Display name"
+msgstr "Nimi"
+
+#: application/auth/views.py:20
+msgid "No such username"
+msgstr "Käyttäjää ei ole olemassa"
+
+#: application/auth/views.py:38 application/auth/views.py:60
+msgid "Username must be at least two characters long"
+msgstr "Käyttäjätunnuksen on oltava vähintään kaksi merkkiä pitkä"
+
+#: application/auth/views.py:41
+msgid "The username you entered is already taken"
+msgstr "Käyttäjätunnus on jo käytössä"
+
+#: application/candidates/forms.py:6 application/candidates/forms.py:13
+msgid "Candidate name"
+msgstr "Ehdokkaan nimi"
+
+#: application/candidates/forms.py:7
+msgid "Candidate URL, e.g. IMDB page"
+msgstr "Ehdokkaan URL, esim. IMDB-sivu"
+
+#: application/candidates/forms.py:14
+msgid "Candidate URL"
+msgstr "Ehdokkaan URL"
+
+#: application/candidates/forms.py:15
+msgid "Selected"
+msgstr "Valittu"
+
+#: application/candidates/views.py:96
+msgid "You can't edit other people's candidates!"
+msgstr "Et voi muokata muiden ehdokkaita!"
+
+#: application/candidates/views.py:115
+msgid "You can't delete other people's candidates!"
+msgstr "Et voi poistaa muiden ehdokkaita!"
+
+#: application/templates/admin.html:22
+msgid "Reset votes"
+msgstr "Nollaa äänet"
+
+#: application/templates/index.html:5 application/templates/layout.html:74
+msgid "There seems to be an error in the application."
+msgstr "Sovelluksessa näyttää olevan virhe."
+
+#: application/templates/index.html:8 application/templates/layout.html:77
+msgid "Plase contact yllapito (at) tko-aly.fi."
+msgstr "Ole hyvä ja ota yhteyttä yllapito (at) tko-aly.fi."
+
+#: application/templates/candidates/selected.html:38
+#: application/templates/index.html:10 application/templates/layout.html:79
+msgid "Go back to the main page"
+msgstr "Palaa pääsivulle"
+
+#: application/templates/layout.html:30
+msgid "List candidates"
+msgstr "Listaa ehdokkaat"
+
+#: application/templates/layout.html:33
+msgid "Add a candidate"
+msgstr "Lisää ehdokas"
+
+#: application/templates/layout.html:40
+msgid "Edit Profile"
+msgstr "Muokkaa profiilia"
+
+#: application/templates/layout.html:43
+msgid "Logout"
+msgstr "Kirjaudu ulos"
+
+#: application/templates/auth/loginform.html:15
+#: application/templates/layout.html:49
+msgid "Login"
+msgstr "Kirjaudu sisään"
+
+#: application/templates/auth/register.html:20
+#: application/templates/layout.html:52
+msgid "Register"
+msgstr "Rekisteröidy"
+
+#: application/templates/auth/edit.html:19
+#: application/templates/candidates/edit.html:23
+msgid "Save changes"
+msgstr "Tallenna muutokset"
+
+#: application/templates/auth/edit.html:23
+msgid "Delete account"
+msgstr "Poista tili"
+
+#: application/templates/auth/register.html:24
+msgid ""
+"Please note that this application is not secure in any way. Any user can "
+"log in with your username."
+msgstr ""
+"Huomioithan, että tämä sovellus ei ole millään tavalla turvallinen. Kuka "
+"tahansa voi kirjautua sisään käyttäjätunnuksellasi."
+
+#: application/templates/candidates/edit.html:27
+msgid "Delete"
+msgstr "Poista"
+
+#: application/templates/candidates/list.html:5
+msgid ""
+"This application implements <a "
+"href=\"https://en.wikipedia.org/wiki/Approval_voting\">approval "
+"voting</a> with unrestricted veto-rights."
+msgstr ""
+"Tämä sovellus toteuttaa <a "
+"href=\"https://fi.wikipedia.org/wiki/Hyv%%C3%%A4ksymisvaalitapa\">hyväksymisvaalitavan"
+"</a> rajoittamattomilla veto-oikeuksilla."
+
+#: application/templates/candidates/list.html:7
+msgid ""
+"Please vote in good faith, i.e. only veto a candidate if you "
+"<em>really</em> don't want to see it."
+msgstr ""
+"Äänestä hyvässä uskossa, eli käytä veto-oikeuttasi vain jos et "
+"<em>oikeasti</em> halua nähdä ehdokasta."
+
+#: application/templates/candidates/list.html:8
+msgid "Using a recognizable name is required to prevent abuse."
+msgstr "Tunnistettavan nimen käyttö on pakollista väärinkäytösten estämiseksi."
+
+#: application/templates/candidates/list.html:13
+msgid "Name"
+msgstr "Nimi"
+
+#: application/templates/candidates/list.html:14
+#: application/templates/candidates/selected.html:12
+msgid "Nominator"
+msgstr "Ehdottaja"
+
+#: application/templates/candidates/list.html:28
+msgid "Nominated by"
+msgstr "Ehdottanut"
+
+#: application/templates/candidates/list.html:35
+#: application/templates/candidates/list.html:36
+msgid "No approvals"
+msgstr "Ei hyväksyntöjä"
+
+#: application/templates/candidates/list.html:39
+msgid "No vetoes"
+msgstr "Ei vetoja"
+
+#: application/templates/candidates/list.html:47
+msgid "person has voted."
+msgid_plural "people have voted."
+msgstr[0] "henkilö on äänestänyt."
+msgstr[1] "henkilöä ovat äänestäneet."
+
+#: application/templates/candidates/list.html:48
+msgid "is winning."
+msgid_plural "are tied."
+msgstr[0] "on voittamassa."
+msgstr[1] "ovat tasoissa."
+
+#: application/templates/candidates/list.html:52
+msgid "There are no candidates in the system."
+msgstr "Järjestelmässä ei ole ehdokkaita."
+
+#: application/templates/candidates/list.html:53
+msgid "If this seems to be an error, contact yllapito (at) tko-aly.fi."
+msgstr "Jos tämä näyttää virheeltä, ota yhteyttä yllapito (at) tko-aly.fi"
+
+#: application/templates/candidates/list.html:59
+msgid "View previously selected candidates"
+msgstr "Näytä aiemmin valitut ehdokkaat"
+
+#: application/templates/candidates/new.html:24
+msgid "Add a new candidate"
+msgstr "Lisää uusi ehdokas"
+
+#: application/templates/candidates/selected.html:5
+msgid "These are all the candidates that have been selected in the past."
+msgstr "Nämä ovat kaikki aiemmin valitut ehdokkaat."
+
+#: application/templates/candidates/selected.html:11
+msgid "Candidate"
+msgstr "Ehdokas"
+
+#: application/templates/candidates/selected.html:13
+msgid "Tags"
+msgstr "Tunnisteet"
+
+#: application/templates/candidates/selected.html:14
+msgid "Time selected"
+msgstr "Valinta-aika"
+
+#: application/templates/candidates/selected.html:30
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: application/templates/candidates/selected.html:37
+msgid "No candidates have been selected yet."
+msgstr "Yhtään ehdokasta ei ole vielä valittu."
+
+#~ msgid "This application implements"
+#~ msgstr "Tämä sovellus toteuttaa"
+
+#~ msgid ""
+#~ "with\n"
+#~ "  unrestricted veto-rights."
+#~ msgstr "rajoittamattomilla veto-oikeuksilla."
+
+#~ msgid "There seems to be an error in the application. "
+#~ msgstr "Sovelluksessa näyttää olevan virhe."
+

@@ -16,10 +16,10 @@
     {{ form.username.label }}
     {{ form.username }}
   </div>
-  <input type="submit" class="btn btn-primary" value="Save changes" />
+  <input type="submit" class="btn btn-primary" value="{{ _('Save changes') }}" />
 </form>
 
 <form method="POST" action="{{ url_for('auth_delete') }}">
-  <input type="submit" class="btn btn-danger" value="Delete account" />
+  <input type="submit" class="btn btn-danger" value="{{ _('Delete account') }}" />
 </form>
 {% endblock %}

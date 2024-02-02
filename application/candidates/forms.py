@@ -1,17 +1,18 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField
+from flask_babel import lazy_gettext
 
 class CandidateForm(FlaskForm):
-    name = StringField("Candidate name")
-    url = StringField("Candidate URL, e.g. IMDB page")
+    name = StringField(lazy_gettext("Candidate name"))
+    url = StringField(lazy_gettext("Candidate URL, e.g. IMDB page"))
  
     class Meta:
         csrf = False
 
 class EditForm(FlaskForm):
-    name = StringField("Candidate name")
-    url = StringField("Candidate URL")
-    selected = BooleanField("Selected")
+    name = StringField(lazy_gettext("Candidate name"))
+    url = StringField(lazy_gettext("Candidate URL"))
+    selected = BooleanField(lazy_gettext("Selected"))
     
     class Meta:
         csrf = False
