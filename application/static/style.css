@@ -55,6 +55,18 @@ th, tr {
   min-width: 9.375rem;
 }
 
+/* Notification component */
+.notification {
+  gap: 1.5rem;
+  padding: .5rem;
+  border-radius: 5pt;
+}
+.notification.error {
+  background-color: rgba(255, 0, 0, 0.05);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
 /* Login and register */
 form:not(.action) input {
   margin-bottom: 1rem;

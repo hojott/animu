@@ -8,6 +8,7 @@
 <p>Please vote in good faith, i.e. only veto a candidate if you <em>really</em> don't want to see it.</p>
 <p>Using a recognizable name is required to prevent abuse.</p>
 
+{% if candidates %}
 <div id="candidates">
   <div class="candidate header desktop">
     <div class="name font-weight-bold">Name</div>
@@ -41,15 +42,21 @@
       <a href="{{ url_for('candidates_edit', candidate_id=candidate.id)}}">✏️</a>
     </div>
   </div>
+
+  <p>
+    {{ n_of_voters }} {{ 'people have' if n_of_voters > 1 else 'person has' }} voted.
+    {{ winning|map('quote')|listify }} {{ 'are tied' if winning | length > 1 else 'is winning' }}.
+  </p>
   {% endfor %}
-</div>
+  {% else %}
+    <div class="notification error">
+      <p><strong>There are no candidates in the system.</strong></p>
+      <p>If this seems to be an error, contact yllapito (at) tko-aly.fi.</p>
+    </div>
+  </div>
+  {% endif %}
 
 <p>
-  {{ n_of_voters }} {{ 'people have' if n_of_voters > 1 else 'person has' }} voted.
-  {{ winning|map('quote')|listify }} {{ 'are tied' if winning | length > 1 else 'is winning' }}.
-</p>
-
-<p>
-  <a href="{{ url_for('candidates_index_selected') }}">View previously selected candidates</a>
+  <a href="{{ url_for('candidates_index_selected') }}">⏪ View previously selected candidates</a>
 </p>
 {% endblock %}
