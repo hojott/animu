@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for
+from flask_babel import gettext, get_locale
 
-from application import app, db
+from application import app, db, babel
 from application.auth.models import User
 from application.votes.models import Veto, Approval
 from application.forms import AdminForm
@@ -38,7 +39,7 @@ def admin_reset_votes():
     # Hardcoded username "admin" must exist in database
     admin = User.query.filter_by(username="admin", password=form.adminpass.data).first()
     if not admin:
-        return render_template("/admin.html", form=form, error="Wrong admin password")
+        return render_template("/admin.html", form=form, error=gettext("Wrong admin password"))
     
     Veto.query.delete()
     Approval.query.delete()

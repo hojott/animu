@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_babel import gettext
 
 from application import app, db
 from application.auth.models import User
@@ -16,7 +17,7 @@ def auth_login():
 
     user = User.query.filter_by(username=form.username.data).first()
     if not user:
-        return render_template("auth/loginform.html", form=form, error="No such username")
+        return render_template("auth/loginform.html", form=form, error=gettext("No such username"))
 
     login_user(user, remember=True, duration=timedelta(weeks=520))
     return redirect(url_for("index"))
@@ -34,10 +35,10 @@ def auth_register():
     form = RegisterForm(request.form)
 
     if len(form.username.data) < 2:
-        return render_template("auth/register.html", form=form, error="Username must be at least two characters long")
+        return render_template("auth/register.html", form=form, error=gettext("Username must be at least two characters long"))
 
     if (User.query.filter_by(username=form.username.data).first() != None):
-        return render_template("auth/register.html", form=form, error="The username you entered is already taken")
+        return render_template("auth/register.html", form=form, error=gettext("The username you entered is already taken"))
 
     new_user = User(form.name.data, form.username.data, "")
 
@@ -56,7 +57,7 @@ def auth_edit():
     form = EditForm(request.form)
 
     if len(form.username.data) < 2:
-        return render_template("auth/edit.html", form=form, error="Username must be at least two characters long")
+        return render_template("auth/edit.html", form=form, error=gettext("Username must be at least two characters long"))
 
     current_user.name = form.name.data
     current_user.username = form.username.data

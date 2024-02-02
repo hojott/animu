@@ -1,5 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from flask_login import login_required, current_user, login_manager
+from flask_babel import gettext
 
 from application import app, db
 from application.candidates import models
@@ -92,7 +93,7 @@ def candidates_edit(candidate_id):
         form=EditForm(obj=candidate), candidate=candidate)
 
     if candidate.nominator_id != current_user.id:
-        return render_template("candidates/edit.html", error="You can't edit other people's candidates!",
+        return render_template("candidates/edit.html", error=gettext("You can't edit other people's candidates!"),
         form=EditForm(obj=candidate), candidate=candidate)
 
     form = EditForm(request.form)
@@ -111,7 +112,7 @@ def candidates_delete(candidate_id):
     candidate = Candidate.query.get(candidate_id)
 
     if candidate.nominator_id != current_user.id:
-        return render_template("candidates/edit.html", error="You can't delete other people's candidates!",
+        return render_template("candidates/edit.html", error=gettext("You can't delete other people's candidates!"),
             form=EditForm(obj=candidate), candidate=candidate)
 
     db.session().delete(candidate)
