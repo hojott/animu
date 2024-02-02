@@ -4,6 +4,14 @@ Web-app that allows approval voting (with veto), intended for selecting the Guru
 
 [App in production](https://heppa.tko-aly.fi/)
 
+## User Instructions
+
+**NB: this application is not secure in any way. Any user can log in with your username.**
+
+Before voting, you need to register an account.
+
+After registering, you can add candidates and vote on them. The electoral system is [approval voting](https://en.wikipedia.org/wiki/Approval_voting) with the addition of an unrestricted veto right for everyone. Voting is not anonymous so that the veto cannot be abused.
+
 ## Installation Instructions
 ### Local Setup
 Make sure that you have these dependencies installed on your machine:
@@ -51,24 +59,6 @@ docker compose up
 ```
 
 It should now be available at `http://127.0.0.1:8000/`
-
-### Heroku Setup
-Simply make sure the application name in the command below is unique
-```
-heroku create example-heppa
-```
-
-You should then be able to open the app in `<example-heppa>.herokuapp.com`
-
-If you've forked this on GitHub, you may want to use [Heroku's GitHub integration](https://devcenter.heroku.com/articles/github-integration).
-
-## User Instructions
-
-**NB: this application is not secure in any way. Any user can log in with your username.**
-
-Before voting, you need to register an account.
-
-After registering, you can add candidates and vote on them. The electoral system is [approval voting](https://en.wikipedia.org/wiki/Approval_voting) with the addition of an unrestricted veto right for everyone. Voting is not anonymous so that the veto cannot be abused.
 
 ## Documentation
 * [User stories (in Finnish)](https://github.com/OAarne/heppa/blob/master/documentation/k%C3%A4ytt%C3%B6tapaukset.md)
