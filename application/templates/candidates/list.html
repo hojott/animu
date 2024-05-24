@@ -36,7 +36,8 @@
         <input type="submit" class="mobile action btn {{ 'btn-success' if candidate.approved }}" value="👍" title="{{ candidate.approvers|map('empty_to_epsilon')|listify if candidate.approvers else _('No approvals') }}" />
       </form>
       <form method="POST" class="action" action="{{ url_for('candidates_set_veto', candidate_id=candidate.id) }}">
-        <input type="submit" class="action btn {{ 'btn-danger' if candidate.vetoed }}" value="❌" title="{{ candidate.vetoers|map('empty_to_epsilon')|listify if candidate.vetoers else _('No vetoes') }}" />
+        <input type="submit" class="desktop action btn {{ 'btn-danger' if candidate.vetoed }}" value="{{ candidate.veto }} ❌" title="{{ candidate.vetoers|map('empty_to_epsilon')|listify if candidate.vetoers else _('No vetoes') }}" />
+        <input type="submit" class="mobile action btn {{ 'btn-danger' if candidate.vetoed }}" value="❌" title="{{ candidate.vetoers|map('empty_to_epsilon')|listify if candidate.vetoers else _('No vetoes') }}" />
       </form>
       <a href="{{ url_for('candidates_edit', candidate_id=candidate.id)}}">✏️</a>
     </div>
