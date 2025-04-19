@@ -52,8 +52,8 @@ msgid "Candidate name"
 msgstr "Ehdokkaan nimi"
 
 #: application/candidates/forms.py:7
-msgid "Candidate URL, e.g. Aniwave page"
-msgstr "Ehdokkaan URL, esim. Aniwave-sivu"
+msgid "Candidate URL, e.g. MAL page"
+msgstr "Ehdokkaan URL, esim. MAL-sivu"
 
 #: application/candidates/forms.py:14
 msgid "Candidate URL"

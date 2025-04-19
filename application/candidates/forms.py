@@ -4,7 +4,7 @@ from flask_babel import lazy_gettext
 
 class CandidateForm(FlaskForm):
     name = StringField(lazy_gettext("Candidate name"))
-    url = StringField(lazy_gettext("Candidate URL, e.g. Aniwave page"))
+    url = StringField(lazy_gettext("Candidate URL, e.g. MAL page"))
  
     class Meta:
         csrf = False
